@@ -24,21 +24,23 @@ exports.createAuction = async (req, res) => {
 
 // @desc Get all auctions
 // @route GET /api/auctions
-// @desc Get all auctions
-// @route GET /api/auctions
 exports.getAllAuctions = async (req, res) => {
   try {
     const { category } = req.query;
+    console.log('Fetching auctions with category:', category);
+    
     const filter = category ? { category } : {};
+    console.log('Using filter:', filter);
 
     const auctions = await Auction.find(filter);
+    console.log(`Found ${auctions.length} auctions`);
+    
     res.json(auctions);
   } catch (error) {
+    console.error('Error in getAllAuctions:', error);
     res.status(500).json({ message: error.message });
   }
 };
-
-
 
 // @desc Get a single auction by ID
 // @route GET /api/auctions/:id
